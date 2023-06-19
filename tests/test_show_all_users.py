@@ -15,8 +15,8 @@ def test_show_users_with_users():
     main.users.append(user_2)
     response = client.get("/user")
 
-    assert response.status_code == 200
-    assert response.json() == main.users
+    assert response.status_code == 200, "Status code != 200"
+    assert response.json() == main.users, "Retorno diferente do esperado"
     assert user_1 in main.users
     main.users.remove(user_1)
     assert user_2 in main.users
@@ -28,8 +28,8 @@ def test_show_users_without_users():
     main.users = []
     response = client.get("/user")
 
-    assert response.status_code == 200
-    assert response.json() == {"Mensagem":"Nenhum usuário cadastrado."}
+    assert response.status_code == 200, "Status code != 200"
+    assert response.json() == {"Mensagem":"Nenhum usuário cadastrado."}, "Retorno diferente do esperado"
 
 
 

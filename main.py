@@ -60,20 +60,6 @@ async def alter_user_data(cpf, user_update:User_Update):
         if user.cpf == cpf:
             
             if user_update.first_name:
-                if  user_update.first_name == user.first_name:
-                    raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail='Nome não alterado, novo name não pode ser igual o anterior.')
-
-            if user_update.last_name:
-                if user_update.last_name == user.last_name:
-                    raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail='Nome não alterado, novo sobrenome não pode ser igual o anterior.')    
-
-                    
-            if user_update.age:
-                if user_update.age == user.age:
-                    raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail='Idade não alterada, idade não pode ser igual o anterior.')
-            
-            
-            if user_update.first_name:
                 user.first_name = user_update.first_name
             if user_update.last_name:
                 user.last_name = user_update.last_name
