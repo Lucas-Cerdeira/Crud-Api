@@ -82,8 +82,6 @@ async def delete_user(cpf:str):
     
     for user in users:
         if user.cpf == cpf:
-            
             users.remove(user)
-            
             return {"Success":"Usuário deletado com sucesso."}
     
