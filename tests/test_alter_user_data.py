@@ -2,7 +2,7 @@ from fastapi.testclient import TestClient
 import pytest
 from pytest import mark
 import main
-from models import User, User_Update
+from models.models import User, User_Update
 
 client = TestClient(main.app)
 

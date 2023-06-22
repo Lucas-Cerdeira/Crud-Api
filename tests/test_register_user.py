@@ -1,8 +1,8 @@
 from fastapi.testclient import TestClient
-import main
-from models import User
-import pytest
 from pytest import mark
+import pytest
+import main
+from models.models import User
 
 
 client = TestClient(main.app)

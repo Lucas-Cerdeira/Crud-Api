@@ -1,9 +1,9 @@
 from fastapi.testclient import TestClient
-from main import app
+import main
 import pytest
 
 
-client = TestClient(app)
+client = TestClient(main.app)
 
 
 def test_root():

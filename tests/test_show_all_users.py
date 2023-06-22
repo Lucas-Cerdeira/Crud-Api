@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 from main import app
 import main
-from models import User
+from models.models import User
 import pytest
 
 

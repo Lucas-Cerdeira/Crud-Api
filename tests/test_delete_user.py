@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 import main
-from models import User
+from models.models import User
 import pytest
 
 

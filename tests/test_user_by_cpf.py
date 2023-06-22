@@ -2,7 +2,7 @@ from fastapi.testclient import TestClient
 import main
 import pytest
 from pytest import mark
-from models import User
+from models.models import User
 
 
 client = TestClient(main.app)
