@@ -6,6 +6,7 @@ from models.models import User, User_Update
 
 client = TestClient(main.app)
 
+users_test = []
 
 
 #Fazer um mock
