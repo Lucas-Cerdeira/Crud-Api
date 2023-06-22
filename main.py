@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, status
 from models.models import User, User_Update
 from utils import validate
-from router import root_router, user_router
+from routes import root_router, user_router
 
 
 
