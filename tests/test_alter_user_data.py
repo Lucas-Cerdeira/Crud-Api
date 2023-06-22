@@ -6,10 +6,9 @@ from models.models import User, User_Update
 
 client = TestClient(main.app)
 
-users_test = []
 
 
-#Fazer um mock
+
 def test_alter_user_data_when_cpf_invalido():
     cpf = "897.789.610-10"
     user = {
