@@ -10,7 +10,7 @@ client = TestClient(main.app)
 
 def test_delete_user():
     cpf = "897.789.610-00"
-    user_1 = User(first_name='Marcos', last_name='Cerdeira', age=20, cpf=cpf)
+    user_1 = User(first_name="Marcos", last_name="Vinicius", day=19, month=8, year=2005, job_role="Intern Assosiate", cpf="897.789.610-00")
     main.users.append(user_1)
 
     response = client.delete(f"/user/delete/{cpf}")

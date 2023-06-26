@@ -54,8 +54,14 @@ async def alter_user_data(cpf, user_update:User_Update):
                 user.first_name = user_update.first_name
             if user_update.last_name:
                 user.last_name = user_update.last_name
-            if user_update.age:
-                user.age = user_update.age
+            if user_update.day:
+                user.day = user_update.day
+            if user_update.month:
+                user.month = user_update.month
+            if user_update.year:
+                user.year = user_update.year
+            if user_update.job_role:
+                user.job_role = user_update.job_role
 
             return user 
     

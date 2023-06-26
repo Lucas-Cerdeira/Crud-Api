@@ -12,11 +12,9 @@ client = TestClient(main.app)
 def test_user_by_cpf():
     cpf = "897.789.610-00"
 
-    user_1 = User(first_name='Marcos', last_name='Cerdeira', age=20, cpf=cpf)
-    user_2 = User(first_name='Pedro', last_name='Santos', age=32, cpf='856.139.390-47')
-        
+    user_1 = User(first_name='Marcos', last_name='Cerdeira', day=20,month=8, year=2005, cpf=cpf)        
     main.users.append(user_1)
-    main.users.append(user_2)
+
 
     response = client.get(f"/user/{cpf}")
 
@@ -29,9 +27,7 @@ def test_user_by_cpf():
 
     assert user_1 in main.users
     main.users.remove(user_1)
-    
-    assert user_2 in main.users
-    main.users.remove(user_2)
+
 
 
 

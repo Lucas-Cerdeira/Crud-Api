@@ -9,14 +9,19 @@ client = TestClient(main.app)
 
 
 
+
 def test_alter_user_data_when_cpf_invalido():
     cpf = "897.789.610-10"
     user = {
-    "first_name": "Gabriel",
-    "last_name": "Cerdeira",
-    "age": 20,
-    "cpf": "897.789.610-10"
+    "name": "Marcos",
+    "last_name": "Vinicius",
+    "day": 19,
+    "month": 8,
+    "year": 2005,
+    "job_role": "Intern Assosiate",
+    "cpf": cpf
 }
+    
     response = client.put(f"/user/alter_data/{cpf}", json=user)
 
     assert response.status_code == 409, "Status code != 409"
@@ -24,26 +29,26 @@ def test_alter_user_data_when_cpf_invalido():
 
 
 
-@mark.first_name_test
-@mark.put
+
 def test_alter_user_first_name():
     cpf = "897.789.610-00"
-    user_1 = User(first_name='Marcos', last_name='Cerdeira', age=20, cpf=cpf)
+    user_1 = User(first_name="Marcos", last_name="Vinicius", day=19, month=8, year=2005, job_role="Intern Assosiate", cpf="897.789.610-00")
     main.users.append(user_1)
     
     expected_user = {
     "first_name": "Gabriel",
-    "last_name": "Cerdeira",
-    "age": 20,
+    "last_name": "Vinicius",
+    "day": 19,
+    "month": 8,
+    "year": 2005,
+    "job_role": "Intern Assosiate",
     "cpf": "897.789.610-00"
 }
-    
+        
     new_firs_name = {
-    "first_name": "Gabriel",
-    "last_name": None,
-    "age": None,
+        "first_name": "Gabriel",
 }
-
+    
     response = client.put(f"/user/alter_data/{cpf}", json=new_firs_name)
 
     assert response.status_code == 200, "Status code != 200"
@@ -51,23 +56,23 @@ def test_alter_user_first_name():
     main.users.remove(user_1)
 
 
-@mark.last_name_test
-@mark.put
+
 def test_alter_user_last_name():
     cpf = "897.789.610-00"
-    user_1 = User(first_name='Marcos', last_name='Cerdeira', age=20, cpf=cpf)
+    user_1 = User(first_name="Marcos", last_name="Vinicius", day=19, month=8, year=2005, job_role="Intern Assosiate", cpf="897.789.610-00")
     main.users.append(user_1)
     
     new_last_name = {
-    "first_name": None,
-    "last_name": "Lobato",
-    "age": None,
+    "last_name": "Lobato"
 }
     
     expected_user = {
     "first_name": "Marcos",
     "last_name": "Lobato",
-    "age": 20,
+    "day": 19,
+    "month": 8,
+    "year": 2005,
+    "job_role": "Intern Assosiate",
     "cpf": "897.789.610-00"
 }
 
@@ -79,32 +84,9 @@ def test_alter_user_last_name():
 
 
 
-@mark.age
-def test_alter_user_age():
-    cpf = "897.789.610-00"
-    user_1 = User(first_name='Gabriel', last_name='Cerdeira', age=20, cpf='897.789.610-00')
-    main.users.append(user_1)
-
-    expected_user = {
-    "first_name": "Gabriel",
-    "last_name": "Cerdeira",
-    "age": 25,
-    "cpf": "897.789.610-00"
-}
-    
-    new_age = {
-    "first_name": None,
-    "last_name": None,
-    "age": 25,
-    }
-    
-    response = client.put(f"/user/alter_data/{cpf}", json=new_age)
-
-    assert response.status_code == 200, "Status code != 200"
-    assert response.json() == expected_user, "Diferente do retorno esperado"
-    main.users.remove(user_1)
-
-
+### Criar test_alter_user_Day
+### Criar test_alter_user_Month
+### Criar test_alter_user_Year
 
 
 
