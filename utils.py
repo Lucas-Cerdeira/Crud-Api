@@ -25,9 +25,7 @@ def validate(cpf: str) -> bool:
     False
     """
 
-    # Verifica a formatação do CPF
-    if not re.match(r'\d{3}\.\d{3}\.\d{3}-\d{2}', cpf):
-        return False
+
 
     # Obtém apenas os números do CPF, ignorando pontuações
     numbers = [int(digit) for digit in cpf if digit.isdigit()]
@@ -52,7 +50,18 @@ def validate(cpf: str) -> bool:
 
 
 
+def format_cpf(cpf:str):
+    if re.match(r'\d{3}\.\d{3}\.\d{3}-\d{2}', cpf):
+        return cpf
+    
+    cpf_chars = []
+    for cpf_number in cpf:
+        if cpf_number.isalnum():
+            cpf_chars.append(cpf_number)   
+                 
+    cpf = ''.join(cpf_chars)
+    cpf = '{}.{}.{}-{}'.format(cpf[:3], cpf[3:6], cpf[6:9], cpf[9:])
+    return cpf
 
-def len_db(db):
-    if len(db) == 0:
-        print('NADA AINDA')
+
+

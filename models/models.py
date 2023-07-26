@@ -1,5 +1,5 @@
 from pydantic import BaseModel, validator
-from typing import Optional, Union
+from typing import Optional
 from datetime import date
 
 
@@ -36,6 +36,29 @@ class User(BaseModel):
         return age
 
 
+    
+    @validator('day')
+    def day_out_of_range(cls, value):
+        if not 1 <= value <= 31:
+            raise ValueError("Dia deve estar entre 1 e 31.")
+        return value
+    
+    @validator('month')
+    def month_out_of_range(cls, value):
+        if not 1 <= value <= 12:
+            raise ValueError("Mês deve estar entre 1 e 12.")
+        return value
+    
+    @validator('year')
+    def year_out_of_range(cls, value):
+        from datetime import datetime
+        ano_atual = datetime.today().year
+
+        if not value < ano_atual:
+            raise ValueError("Ano deve ser menor que o atual.")
+        return value
+
+
 
 class User_Update(BaseModel):
     first_name: Optional[str] = None
@@ -45,6 +68,27 @@ class User_Update(BaseModel):
     year: Optional[int] = None
     job_role: Optional[str] = None
 
+
+    @validator('day')
+    def day_out_of_range(cls, value):
+        if not 1 <= value <= 31:
+            raise ValueError("Dia deve estar entre 1 e 31.")
+        return value
+    
+    @validator('month')
+    def month_out_of_range(cls, value):
+        if not 1 <= value <= 12:
+            raise ValueError("Mês deve estar entre 1 e 12.")
+        return value
+    
+    @validator('year')
+    def year_out_of_range(cls, value):
+        from datetime import datetime
+        ano_atual = datetime.today().year
+
+        if not value < ano_atual:
+            raise ValueError("Ano deve ser menor que o atual.")
+        return value
 
     @property
     def data_nascimento(self):

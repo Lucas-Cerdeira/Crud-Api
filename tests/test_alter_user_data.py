@@ -85,8 +85,81 @@ def test_alter_user_last_name():
 
 
 ### Criar test_alter_user_Day
+def test_alter_user_day():
+    cpf = "897.789.610-00"
+    user_1 = User(first_name="Marcos", last_name="Vinicius", day=19, month=8, year=2005, job_role="Intern Assosiate", cpf="897.789.610-00")
+    main.users.append(user_1)
+    
+    new_day = {
+    "day": 25
+}
+    
+    expected_user = {
+    "first_name": "Marcos",
+    "last_name": "Vinicius",
+    "day": 25,
+    "month": 8,
+    "year": 2005,
+    "job_role": "Intern Assosiate",
+    "cpf": "897.789.610-00"
+}
+
+    response = client.put(f"/user/alter_data/{cpf}", json=new_day)
+
+    assert response.status_code == 200, "Status code != 200"
+    assert response.json() == expected_user, "Diferente do retorno esperado"
+    main.users.remove(user_1)
+
+    
 ### Criar test_alter_user_Month
+def test_alter_user_month():
+    cpf = "897.789.610-00"
+    user_1 = User(first_name="Marcos", last_name="Vinicius", day=19, month=8, year=2005, job_role="Intern Assosiate", cpf="897.789.610-00")
+    main.users.append(user_1)
+    
+    new_month = {
+    "month": 5
+}
+    
+    expected_user = {
+    "first_name": "Marcos",
+    "last_name": "Vinicius",
+    "day": 19,
+    "month": 5,
+    "year": 2005,
+    "job_role": "Intern Assosiate",
+    "cpf": "897.789.610-00"
+}
+
+    response = client.put(f"/user/alter_data/{cpf}", json=new_month)
+
+    assert response.status_code == 200, "Status code != 200"
+    assert response.json() == expected_user, "Diferente do retorno esperado"
+    main.users.remove(user_1)
+
 ### Criar test_alter_user_Year
+def test_alter_user_year():
+    cpf = "897.789.610-00"
+    user_1 = User(first_name="Marcos", last_name="Vinicius", day=19, month=8, year=2005, job_role="Intern Assosiate", cpf="897.789.610-00")
+    main.users.append(user_1)
+    
+    new_year = {
+    "year": 2004
+}
+    
+    expected_user = {
+    "first_name": "Marcos",
+    "last_name": "Vinicius",
+    "day": 19,
+    "month": 8,
+    "year": 2004,
+    "job_role": "Intern Assosiate",
+    "cpf": "897.789.610-00"
+}
 
+    response = client.put(f"/user/alter_data/{cpf}", json=new_year)
 
+    assert response.status_code == 200, "Status code != 200"
+    assert response.json() == expected_user, "Diferente do retorno esperado"
+    main.users.remove(user_1)
 

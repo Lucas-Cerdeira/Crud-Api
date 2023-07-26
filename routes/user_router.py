@@ -1,5 +1,5 @@
 from fastapi import HTTPException, status, APIRouter
-from utils import validate
+from utils import validate, format_cpf
 from models.models import User, User_Update
 import main
 
@@ -30,12 +30,17 @@ async def user_by_cpf(cpf:str):
 
 @router.post("/user/register", response_model=User)
 async def register_user(user:User):
+    from datetime import datetime
+    ano_atual = datetime.today().year
+        
     if not validate(user.cpf):
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail='Cpf inválido.')
+    user.cpf = format_cpf(user.cpf)
 
     if user.cpf in map(lambda x:x.cpf, main.users):
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail='Usuário já cadastrado.')
-    
+
+    user.cpf = format_cpf(user.cpf)
     main.users.append(user)
     
     return user
@@ -48,7 +53,7 @@ async def alter_user_data(cpf, user_update:User_Update):
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail='Cpf inválido.')
 
     for user in main.users:
-        if user.cpf == cpf:
+        if user.cpf == format_cpf(cpf):
             
             if user_update.first_name:
                 user.first_name = user_update.first_name
@@ -74,11 +79,11 @@ async def delete_user(cpf:str):
     if not validate(cpf):
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail='Cpf inválido.')
     
-    if not cpf in map(lambda x:x.cpf, main.users):
+    if not format_cpf(cpf) in map(lambda x:x.cpf, main.users):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Usuário não encontrado.')
     
     for user in main.users:
-        if user.cpf == cpf:
+        if user.cpf == format_cpf(user.cpf):
             main.users.remove(user)
             return {"Success":"Usuário deletado com sucesso."}
     
