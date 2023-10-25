@@ -36,17 +36,21 @@ class User(BaseModel):
         return age
     
     @validator('*')
-    def check_empt_values(cls, values):
-        if str(values) == '':
+    def check_empt_values(cls, value):
+        if str(value) == '':
             raise ValueError("Empty values are not aceptable.")
-        return values
+        return value
     
     @validator('day')
     def check_day_value(cls, value):
-        if 28 > value > 31:
-            raise ValueError("Days can't be greatter than 31 and lower than 28.")
+        if 1 > value > 31:
+            raise ValueError("Days can't be greatter than 31 and lower than 1.")
         
-    
+    @validator('mounth')
+    def check_month_values(cls, value):
+        if 1 > value > 12:
+            raise ValueError("Months can't be greater than 12 ans lower than 1.")
+        
 
 
 
