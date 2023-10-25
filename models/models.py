@@ -40,6 +40,13 @@ class User(BaseModel):
         if str(values) == '':
             raise ValueError("Empty values are not aceptable.")
         return values
+    
+    @validator('day')
+    def check_day_value(cls, value):
+        if 28 > value > 31:
+            raise ValueError("Days can't be greatter than 31 and lower than 28.")
+        
+    
 
 
 
