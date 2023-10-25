@@ -1,5 +1,6 @@
 from fastapi.testclient import TestClient
 import main
+from routes.user_router import users
 from models.models import User
 import pytest
 
@@ -11,13 +12,13 @@ client = TestClient(main.app)
 def test_delete_user():
     cpf = "897.789.610-00"
     user_1 = User(first_name="Marcos", last_name="Vinicius", day=19, month=8, year=2005, job_role="Intern Assosiate", cpf="897.789.610-00")
-    main.users.append(user_1)
+    users.append(user_1)
 
     response = client.delete(f"/user/delete/{cpf}")
     
     assert response.status_code == 200, "Status code != 200"
     assert response.json() == {"Success":"Usuário deletado com sucesso."}, "Retorno diferente do esperado"
-    assert not user_1 in main.users, "user_1 não foi deletado"
+    assert not user_1 in users, "user_1 não foi deletado"
 
 
 

@@ -2,6 +2,7 @@ from fastapi.testclient import TestClient
 import pytest
 from pytest import mark
 import main
+from routes.user_router import users
 from models.models import User, User_Update
 
 client = TestClient(main.app)
@@ -33,7 +34,7 @@ def test_alter_user_data_when_cpf_invalido():
 def test_alter_user_first_name():
     cpf = "897.789.610-00"
     user_1 = User(first_name="Marcos", last_name="Vinicius", day=19, month=8, year=2005, job_role="Intern Assosiate", cpf="897.789.610-00")
-    main.users.append(user_1)
+    users.append(user_1)
     
     expected_user = {
     "first_name": "Gabriel",
@@ -53,14 +54,14 @@ def test_alter_user_first_name():
 
     assert response.status_code == 200, "Status code != 200"
     assert response.json() == expected_user, "Diferente do retorno esperado"
-    main.users.remove(user_1)
+    users.remove(user_1)
 
 
 
 def test_alter_user_last_name():
     cpf = "897.789.610-00"
     user_1 = User(first_name="Marcos", last_name="Vinicius", day=19, month=8, year=2005, job_role="Intern Assosiate", cpf="897.789.610-00")
-    main.users.append(user_1)
+    users.append(user_1)
     
     new_last_name = {
     "last_name": "Lobato"
@@ -80,7 +81,7 @@ def test_alter_user_last_name():
 
     assert response.status_code == 200, "Status code != 200"
     assert response.json() == expected_user, "Diferente do retorno esperado"
-    main.users.remove(user_1)
+    users.remove(user_1)
 
 
 

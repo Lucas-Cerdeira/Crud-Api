@@ -1,5 +1,6 @@
 from fastapi.testclient import TestClient
 import main
+from routes.user_router import users
 import pytest
 from pytest import mark
 from models.models import User
@@ -13,20 +14,20 @@ def test_user_by_cpf():
     cpf = "897.789.610-00"
 
     user_1 = User(first_name='Marcos', last_name='Cerdeira', day=20,month=8, year=2005, cpf=cpf)        
-    main.users.append(user_1)
+    users.append(user_1)
 
 
     response = client.get(f"/user/{cpf}")
 
-    for user in main.users:
+    for user in users:
         if user.cpf == cpf:
             expected_user = user
 
     assert response.status_code == 200, "Status code != 200"
     assert response.json() == expected_user, "Retorno diferente do esperado"
 
-    assert user_1 in main.users
-    main.users.remove(user_1)
+    assert user_1 in users
+    users.remove(user_1)
 
 
 
