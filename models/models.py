@@ -34,6 +34,12 @@ class User(BaseModel):
             age -= 1
 
         return age
+    
+    @validator('*')
+    def check_empt_values(cls, values):
+        if str(values) == '':
+            raise ValueError("Empty values are not aceptable.")
+        return values
 
 
 
