@@ -1,16 +1,15 @@
 from fastapi import HTTPException, status, APIRouter
 from utils import validate
 from models.models import User, User_Update
-import main
 
-
+users = []
 
 router = APIRouter()
 
 @router.get("/user")
 async def show_all_users():
-    if not len(main.users) == 0:
-        return main.users
+    if not len(users) == 0:
+        return users
     
     return {"Mensagem":"Nenhum usuário cadastrado."}
 
@@ -20,7 +19,7 @@ async def user_by_cpf(cpf:str):
     if not validate(cpf):
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail='Cpf inválido.')
  
-    for user in main.users:
+    for user in users:
         if user.cpf == cpf:
             return user
     
@@ -33,10 +32,10 @@ async def register_user(user:User):
     if not validate(user.cpf):
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail='Cpf inválido.')
 
-    if user.cpf in map(lambda x:x.cpf, main.users):
+    if user.cpf in map(lambda x:x.cpf, users):
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail='Usuário já cadastrado.')
     
-    main.users.append(user)
+    users.append(user)
     
     return user
 
@@ -47,7 +46,7 @@ async def alter_user_data(cpf, user_update:User_Update):
     if not validate(cpf):
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail='Cpf inválido.')
 
-    for user in main.users:
+    for user in users:
         if user.cpf == cpf:
             
             if user_update.first_name:
@@ -74,11 +73,11 @@ async def delete_user(cpf:str):
     if not validate(cpf):
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail='Cpf inválido.')
     
-    if not cpf in map(lambda x:x.cpf, main.users):
+    if not cpf in map(lambda x:x.cpf, users):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Usuário não encontrado.')
     
-    for user in main.users:
+    for user in users:
         if user.cpf == cpf:
-            main.users.remove(user)
+            users.remove(user)
             return {"Success":"Usuário deletado com sucesso."}
     
