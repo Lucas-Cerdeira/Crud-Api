@@ -65,19 +65,21 @@ class User(BaseModel):
 
     @validator('day')
     def check_day_value(cls, value):
-        if 1 > value > 31:
+        if 1 > value or value > 31:
             raise ValueError("Days can't be greater than 31 and lower than 1.")
         return value
 
     @validator('month')
     def check_month_values(cls, value):
-        if 1 > value > 12:
+        if 1 > value or value > 12:
             raise ValueError("Months can't be greater than 12 ans lower than 1.")
         return value
         
     @validator('year')
     def check_year_value(cls, value):
         current_year = date.today().year
+        if not len(str(value)) == 4:
+            raise ValueError("Invalid year.")
         if value > current_year:
             raise ValueError("Year can't be greater than current year.")
         return value
