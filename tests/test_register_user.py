@@ -69,4 +69,24 @@ def test_user_ja_cadastrado():
     assert response.json() == {"detail":"Usuário já cadastrado."}, "Retorno diferente do esperado"
     assert test_user in users, "Usuário não estava cadastrado como era esperado"
     users.remove(test_user)
+
+
+
+def test_register_user_with_empty_values():
+    expected_user = {
+    "first_name": "Marcos",
+    "last_name": "Lobato",
+    "day": 19,
+    "month": 5,
+    "year": 2005,
+    "job_role": "Intern Assosiate",
+    "cpf": ""
+}
+    
+    response = client.post("/user/register", json=expected_user)
+
+    assert response.status_code == 422, "Status code != 422"
+    assert expected_user not in users
+    if expected_user in users:
+        users.remove(expected_user)
     

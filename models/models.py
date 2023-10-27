@@ -34,6 +34,56 @@ class User(BaseModel):
             age -= 1
 
         return age
+    
+    @validator('first_name')
+    def check_empt_first_name(cls, value):
+        if value.strip() == '':
+            raise ValueError("Empty values are not aceptable.")
+        return value
+    
+    
+    @validator('last_name')
+    def check_empt_last_name(cls, value):
+        if value.strip() == '':
+            raise ValueError("Empty values are not aceptable.")
+        return value
+    
+    
+    @validator('job_role')
+    def check_empt_job_role(cls, value):
+        if value.strip() == '':
+            raise ValueError("Empty values are not aceptable.")
+        return value
+    
+    
+    @validator('cpf')
+    def check_empt_values(cls, value):
+        if value.strip() == '':
+            raise ValueError("Empty values are not aceptable.")
+        return value
+    
+
+    @validator('day')
+    def check_day_value(cls, value):
+        if 1 > value or value > 31:
+            raise ValueError("Days can't be greater than 31 and lower than 1.")
+        return value
+
+    @validator('month')
+    def check_month_values(cls, value):
+        if 1 > value or value > 12:
+            raise ValueError("Months can't be greater than 12 ans lower than 1.")
+        return value
+        
+    @validator('year')
+    def check_year_value(cls, value):
+        current_year = date.today().year
+        if not len(str(value)) == 4:
+            raise ValueError("Invalid year.")
+        if value > current_year:
+            raise ValueError("Year can't be greater than current year.")
+        return value
+        
 
 
 
