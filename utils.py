@@ -53,6 +53,3 @@ def validate(cpf: str) -> bool:
 
 
 
-def len_db(db):
-    if len(db) == 0:
-        print('NADA AINDA')
